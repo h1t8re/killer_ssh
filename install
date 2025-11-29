@@ -1,0 +1,4 @@
+gcc -Wall -c clib.c -o clib.o
+gcc -Wall -g ssh_killer.c clib.o -o ssh_killer
+chmod +x ssh_killer
+chmod +x install ssh_killer.sh
