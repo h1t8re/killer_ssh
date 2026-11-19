@@ -1,6 +1,8 @@
 #include <stdio.h>
-#include "clib.h"
+#include "./include/stdlib.h"
 #include <stdlib.h>
+#include <signal.h>
+#include <sys/types.h>
 
 int main(int argc, char *argv[])
 {
@@ -17,16 +19,18 @@ int main(int argc, char *argv[])
                 line = strsplit_v1(data, spliter_new_line);
                 while(line[i] != '\0')
                 {
-                        if(strcontains(strdup(line[i]), strdup("killer_ssh\0")) == 0)
-                                continue;
-                        word = strsplit_v1(line[i], spliter_by_space);
+		      	if(strcontains(strdup(line[i]), strdup("killer_ssh\0")) == 0)
+                        {
+				i++;
+			        continue;
+                        }
+			word = strsplit_v1(line[i], spliter_by_space);
                         while(word[j] != '\0')
                         {
 				if(atoi(word[j]) != 0)
                                 {
-                                        printf("Killing process with pid '%d' ...\n", atoi(word[j]));
-                                        const char *command = strconcatenate(strdup("kill -9 \0"), strdup(word[j]));
-					system(command);
+                                        printf("Killing process with pid '%d' ...", atoi(word[j]));
+					kill(atoi(word[j]), SIGKILL);
 					printf("[done]\n");
                                         break;
                                 }
