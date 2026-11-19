@@ -1,4 +1,8 @@
-gcc -Wall -c clib.c -o clib.o
-gcc -Wall -g ssh_killer.c clib.o -o ssh_killer
-chmod +x ssh_killer
-chmod +x install ssh_killer.sh
+cd stdlib;
+./install;
+cd ..;
+cp -v ./stdlib/stdlib.h ./include/stdlib.h;
+cp -v ./stdlib/stdlib.o ./lib/stdlib.o;
+gcc -Wall -g killer_ssh.c ./lib/stdlib.o -o killer_ssh;
+chmod +x killer_ssh;
+chmod +x killer_ssh.sh
